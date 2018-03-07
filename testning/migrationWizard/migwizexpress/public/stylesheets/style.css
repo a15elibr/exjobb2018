@@ -1,0 +1,29 @@
+body {
+    background-color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    color: #000;
+    padding: 50px;
+    text-align: center;
+}
+
+header {
+    margin: 0 auto;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+ul li {
+    display: inline;
+    padding: 10px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1 {
+    font-family: 'Karma', sans-serif;
+}

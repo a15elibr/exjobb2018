@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Karma:300,400,500')
+  body
+    header
+        h1 Migration Wizard
+    nav
+        - var navLinks = ['About', 'Hello', 'Examples'];
+        ul
+            each link in navLinks
+                li: a(href=link)= link
+    block content
+    footer
+        p Koppyright Elin
