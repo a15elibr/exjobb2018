@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the migration wizard! This wizard will help you to magically migrate your MySQL database into MongoDB. 
+  
+  table
+    for person in personList
+        tr
+            td= person.id
+            td= person.FirstName
+    
