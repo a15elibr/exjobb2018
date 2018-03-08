@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 MySQL connection
+  p Example  
+  
+  table
+    for person in personList
+        tr
+            td= person.id
+            td= person.FirstName
+    

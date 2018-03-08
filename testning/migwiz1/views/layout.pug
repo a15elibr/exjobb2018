@@ -4,4 +4,15 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    .wrapper
+        header
+            h1 
+               img.image(src='http://localhost:3000/images/migwiz1.png')
+               a(href='/') MigWiz
+            nav 
+                - var navLinks = ['Home', 'About', 'MySQL'];
+                ul
+                    each link in navLinks
+                        li: a(href=link)= link
+        .content
+            block content
