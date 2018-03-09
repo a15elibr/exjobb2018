@@ -4,9 +4,8 @@ block content
   h1 Mongodb connection
   p Example  
   
-  
   table
-    for person in personList
+    each person in personList
         tr
-            td= person.ID
-            td= person.firstname
+          td #{person.name}
+    
