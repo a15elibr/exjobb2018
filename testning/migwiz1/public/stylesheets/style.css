@@ -104,3 +104,17 @@ a:hover {
     font-size: 1.3em;
     font-weight: 200;
 }
+
+button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #77d4e5;
+    border: 3px solid #77d4e5;
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+button:hover {
+    background-color: #FFF;
+    color: #77d4e5;
+}
