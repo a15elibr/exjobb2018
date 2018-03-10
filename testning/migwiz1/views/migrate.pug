@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    .item
+        .status
+            migStatus= migStatus
+            
+    .item
+        table
+            each user in userList
+                tr
+                td #{user.userName}
