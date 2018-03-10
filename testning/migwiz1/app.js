@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
-var mysql = require('./routes/mysql');
 var mongodb = require('./routes/mongodb');
 var migrate = require('./routes/migrate');
 
@@ -28,8 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/mysql', mysql);
-app.use('/mongodb', mongodb);
 app.use('/migrate', migrate);
 
 // catch 404 and forward to error handler
