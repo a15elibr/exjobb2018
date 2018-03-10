@@ -7,7 +7,6 @@ var mongodb = require('mongodb').MongoClient;
 router.get('/', function(req, res, next) {
     
     var userList = [];
-    var migStatus = 'Lets begin..';
     
     // MYSQL
     // connect to db
@@ -54,8 +53,8 @@ router.get('/', function(req, res, next) {
                 });
 	  	    }
         }
-        
-        res.render('migrate', { migStatus: migStatus, userList: userList });
+        var migStatus = true;
+        res.render('index', { migStatus: migStatus, userList: userList });
     });
     con.end();
 });
