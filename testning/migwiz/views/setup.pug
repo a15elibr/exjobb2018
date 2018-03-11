@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    if !setup
+        .item
+
+        .item
+            .form
+                form(method='POST' action='')
+                    h3 MySQL
+                    label(for='dbnamemysql') Database name:
+                    br
+                    input#name.form-control(type='text', name='dbnamemysql')
+                    br
+                    label(for='hostmysql') Host name:
+                    br
+                    input#host.form-control(type='text', name='hostmysql')
+                    br
+                    label(for='usernamemysql') User name:
+                    br
+                    input#username.form-control(type='text', name='usernamemysql')
+                    br
+                    label(for='passwordmysql') Password:
+                    br
+                    input#password.form-control(type='text', name='passwordmysql')
+                    br
+                    br
+                    h3 MongoDB
+                    label(for='urlmongodb') URL:
+                    br
+                    input#name.form-control(type='text', name='urlmongodb')
+                    br
+                    label(for='dbnamemongodb') Database name:
+                    br
+                    input#host.form-control(type='text', name='dbnamemongodb')
+                    br
+                    
+                    input#submit.form-control(type='submit', name='submit')
+    
+    else
+        .item
+            h3 MySQL database added!
+            p= dbnamemysql
+            p= hostmysql
+            p= usernamemysql
+            p= passwordmysql
+            br 
+            br
+            p= urlmongodb
+            p= dbnamemongodb
+            
