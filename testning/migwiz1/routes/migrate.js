@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     // (( test - LastName, FirstName, UserName, RegDate, Email, Pass, ID FROM User ))
     // 'SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User WHERE ID = 1;'
     
-    con.query('SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User WHERE ID = 1;', function(err, rows, fields) {
+    con.query('SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User;', function(err, rows, fields) {
         if (err) {
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
         } else {
@@ -54,10 +54,9 @@ router.get('/', function(req, res, next) {
                 mongodb.connect(url, function(err, db) {
                     if (err) throw err;
                     var dbo = db.db("test");
-                    dbo.collection("users").insertOne(user, function(err, res) {
-                        if(err){
-                            throw err;
-                        } 
+                    dbo.collection("users").insertMany(userList, function(err, res) {
+                        if (err) throw err;
+                        console.log("Number of documents inserted: " + res.insertedCount);
                         db.close();
                     });
                 });
