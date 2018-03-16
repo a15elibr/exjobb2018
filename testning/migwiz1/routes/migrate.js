@@ -14,13 +14,18 @@ router.get('/', function(req, res, next) {
       host: "localhost",
       user: "elin",
       password: "elinis",
-      database: "wordPressApp"
+      database: "test"
     });
     con.connect();
 
     // QUERY DATA
     // starting with one user 
-    con.query('SELECT ID, user_login, user_pass, user_email, user_registered FROM wp_users WHERE ID = 5;', function(err, rows, fields) {
+    // (( wordPressApp- user_login, user_pass, user_email, user_registered FROM wp_users ))
+    // 'SELECT ID, user_login, user_pass, user_email, user_registered FROM wp_users WHERE ID = 5;'
+    // (( test - LastName, FirstName, UserName, RegDate, Email, Pass, ID FROM User ))
+    // 'SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User WHERE ID = 1;'
+    
+    con.query('SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User WHERE ID = 1;', function(err, rows, fields) {
         if (err) {
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
         } else {
@@ -30,10 +35,15 @@ router.get('/', function(req, res, next) {
 	  			// save result in object
 		  		var user = {
 		  			'ID':rows[i].ID,
-		  			'userName':rows[i].user_login,
-                    'password':rows[i].user_pass,
-                    'email':rows[i].user_email,
-                    'regDate':rows[i].user_registered
+                    'name': {
+                            'first': rows[i].FirstName,
+                            'last': rows[i].LastName
+                    },
+		  			'userName':rows[i].UserName,
+                    'password':rows[i].Pass,
+                    'email':rows[i].Email,
+                    'regDate':rows[i].RegDate,
+                    'isAdmin':false
 		  		}
                 // Add object into array
 		  		userList.push(user);
@@ -43,7 +53,7 @@ router.get('/', function(req, res, next) {
                 var url = 'mongodb://localhost:27017/';
                 mongodb.connect(url, function(err, db) {
                     if (err) throw err;
-                    var dbo = db.db("kaer");
+                    var dbo = db.db("test");
                     dbo.collection("users").insertOne(user, function(err, res) {
                         if(err){
                             throw err;
