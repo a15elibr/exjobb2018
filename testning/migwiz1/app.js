@@ -9,6 +9,7 @@ var mysql = require('mysql');
 var index = require('./routes/index');
 var migrate = require('./routes/migrate');
 var users = require('./routes/users');
+var success = require('./routes/success');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/success', success);
 app.use('/migrate', migrate);
 
 // catch 404 and forward to error handler
