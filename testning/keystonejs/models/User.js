@@ -13,7 +13,7 @@ User.add({
 	password: { type: Types.Password, initial: true, required: true },
     username: { type: Types.Text, required: false, initial: true, unique: false },
     regdate: { type: Types.Date, required: false, initial: true },
-    subdomain: { type: Types.Text, initial: true }
+    group: { type: Types.Select, options: 'admin, teacher, student', default: 'student' }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 });
@@ -28,7 +28,7 @@ User.schema.virtual('canAccessKeystone').get(function () {
  * Relationships
  */
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
-
+User.relationship({ ref: 'Subdomain', path: 'subdomain', refPath: 'username' });
 
 /**
  * Registration
