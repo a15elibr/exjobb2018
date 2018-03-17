@@ -6,6 +6,7 @@ var Types = keystone.Field.Types;
  * ==========
  */
 var User = new keystone.List('User', {
+    track: false
 });
 
 User.add({
@@ -32,12 +33,19 @@ User.schema.virtual('canAccessKeystone').get(function () {
  * Relationships
  */
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
+
+// Do SOMETHING WHEN A USER IS SAVED 
+User.schema.pre('save', function(next) {
+    console.log("HELLO !!?!??");
+    next();
+});
+
+
+
+
 /**
  * Registration
  */
-
-// bugfix ? 
-// exports = module.exports = User;
 
 User.defaultColumns = 'name, email, isAdmin, username, regdate, group, subdomain';
 User.register();
