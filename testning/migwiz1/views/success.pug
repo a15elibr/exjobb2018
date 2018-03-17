@@ -2,10 +2,9 @@ extends layout
 
 block content
     .item
-        p Migration complete
+        h2 Migration complete
+        p These users were added
         table
             each user in userList
                 tr
                 td #{user.userName}
-                td #{user.email}
-                td #{user.regDate}
