@@ -2,9 +2,5 @@ extends layout
 
 block content
     .item
-        h2 Migration complete
-        p These users were added
-        table
-            each user in userList
-                tr
-                td #{user.userName}
+        .headliner Migration complete
+        .subliner #{userList.length} users added
