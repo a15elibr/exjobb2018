@@ -1,11 +1,12 @@
-var express = require('express');
-var router = express.Router();
 var mysql = require('mysql');
 var mongodb = require('mongodb').MongoClient;
+var express = require('express');
+var router = express.Router();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    
+    console.log("hello from migrate");
     var userList = [];
     
     // MYSQL
@@ -47,23 +48,23 @@ router.get('/', function(req, res, next) {
 		  		}
                 // Add object into array
 		  		userList.push(user);
-                
-                // MONGODB INSERT
-                // Connect to MONGO DB
-                var url = 'mongodb://localhost:27017/';
-                mongodb.connect(url, function(err, db) {
+            }
+            
+            // MONGODB INSERT
+            // Connect to MONGO DB
+            var url = 'mongodb://localhost:27017/';
+            mongodb.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db("test22");
+                dbo.collection("users").insertMany(userList, function(err, res) {
                     if (err) throw err;
-                    var dbo = db.db("test");
-                    dbo.collection("users").insertMany(userList, function(err, res) {
-                        if (err) throw err;
-                        console.log("Number of documents inserted: " + res.insertedCount);
-                        db.close();
-                    });
+                    console.log("Number of documents inserted: " + res.insertedCount);
+                    db.close();
                 });
+            });
 	  	    }
-        }
         var migStatus = true;
-        res.render('index', { migStatus: migStatus, userList: userList });
+        res.render('success', { migStatus: migStatus, userList: userList });
     });
     con.end();
 });
