@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    .item
+        p Migration complete
+        table
+            each user in userList
+                tr
+                td #{user.userName}
+                td #{user.email}
+                td #{user.regDate}
