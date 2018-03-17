@@ -52,7 +52,7 @@ router.get('/', function(req, res, next) {
                     'regdate':rows[i].RegDate,
                     'isAdmin':false,
                     'group': 'student',
-                    'subname': rows[i].UserName + 'blog',
+                    'subname': rows[i].FirstName + ' ' + rows[i].LastName,
 		  		}
                 // Add object into array
 		  		userList.push(user);
@@ -61,12 +61,13 @@ router.get('/', function(req, res, next) {
             // connecting to mongodb
             // via mongoose
             mongoose.connect('mongoDB://localhost:27017/keystonejs', function(){
-                console.log("connected");
+                console.log('connected');
             });
             // inserting 
             var conn = mongoose.connection;
-            conn.collection('users').insert(userList, function () {
-                console.log("insertion complete");
+            conn.collection('users').insert(userList, function(err, result) {
+                if (err) return handleError(err);
+                console.log('inserted ' + result.rows + ' users');
             });
 	  	}
         // render
