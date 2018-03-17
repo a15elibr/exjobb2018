@@ -1,7 +1,7 @@
 var mysql = require('mysql');
-var mongodb = require('mongodb').MongoClient;
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 
 /* GET home page. */
@@ -51,17 +51,30 @@ router.get('/', function(req, res, next) {
             }
             
             // MONGODB INSERT
-            // Connect to MONGO DB
-            var url = 'mongodb://localhost:27017/';
-            mongodb.connect(url, function(err, db) {
-                if (err) throw err;
-                var dbo = db.db("test22");
-                dbo.collection("users").insertMany(userList, function(err, res) {
-                    if (err) throw err;
-                    console.log("Number of documents inserted: " + res.insertedCount);
-                    db.close();
-                });
+            // MOONGOOSE VERSION
+            // var mongoDB = 'mongodb://username:password@host:port/database?options...';
+            mongoose.connect('mongoDB://localhost:27017/keystonejs', function(){
+                console.log("connected");
             });
+            
+            var conn = mongoose.connection;
+            var meme = {
+                name: {
+                    first: 'elin',
+                    last: 'andersson'
+                },
+                username: 'moose',
+                password: 'hash',
+                email: 'meieiak@lsg.se',
+                regdate: 2015-16-25,
+                isAdmin: false
+            }
+
+            conn.collection('users').insert(meme, function () {
+                console.log("tried to insert");
+            });
+            //mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+
 	  	    }
         var migStatus = true;
         res.render('success', { migStatus: migStatus, userList: userList });
