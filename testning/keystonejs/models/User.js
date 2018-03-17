@@ -28,10 +28,14 @@ User.schema.virtual('canAccessKeystone').get(function () {
  * Relationships
  */
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
-User.relationship({ ref: 'Subdomain', path: 'subdomain', refPath: 'username' });
+// User.relationship({ ref: 'Subdomain', path: 'subdomains', refPath: 'username' });
 
 /**
  * Registration
  */
+
+// bugfix ? 
+// exports = module.exports = User;
+
 User.defaultColumns = 'name, email, isAdmin, username, regdate';
 User.register();

@@ -3,18 +3,17 @@ var Types = keystone.Field.Types;
 
 /**
  * Subdomain model
- * ==========
+ * =============
  */
 
 var Subdomain = new keystone.List('Subdomain', {
-	map: { name: 'username' },
-	autokey: { path: 'slug', from: 'username', unique: true },
+    autokey: { path: 'slug', from: 'name', unique: true },
 });
 
 Subdomain.add({
-    username: { type: Types.Relationship, ref: 'User', index: true, required: true, filters: { group: 'student' } },
-    name: { type: Types.Text, initial: true, default: 'username' },
+	name: { type: String, required: true, initial: true, index: true },
+    text: { type: Types.Text, initial: true },
+    username: { type: Types.Relationship, ref: 'User', many: false },
 });
 
-Subdomain.defaultColumns = 'username, name';
 Subdomain.register();
