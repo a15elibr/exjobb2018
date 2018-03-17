@@ -13,10 +13,12 @@ exports = module.exports = function (req, res) {
     var User = keystone.list('User').model;
 
     var user = new User({
-        name: { first:'Abcd', last:'xyz' },
-        email: 'abc@xyz.com',
-        password: 'password',
-        isAdmin: false
+        name: { first:'elin', last:'brown' },
+        email: 'a15elibr@student.his.se',
+        password: 'elinis',
+        isAdmin: false,
+        username: 'a15elibr',
+        regdate: 2015-16-04
     });
 
     user.save(function (err) {

@@ -11,6 +11,8 @@ User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
 	password: { type: Types.Password, initial: true, required: true },
+    username: { type: Types.Text, required: false, initial: true, unique: false },
+    regdate: { type: Types.Date, required: false, initial: true }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 });
@@ -30,5 +32,5 @@ User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
 /**
  * Registration
  */
-User.defaultColumns = 'name, email, isAdmin';
+User.defaultColumns = 'name, email, isAdmin, username, regdate';
 User.register();
