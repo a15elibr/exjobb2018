@@ -12,7 +12,8 @@ User.add({
 	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
 	password: { type: Types.Password, initial: true, required: true },
     username: { type: Types.Text, required: false, initial: true, unique: false },
-    regdate: { type: Types.Date, required: false, initial: true }
+    regdate: { type: Types.Date, required: false, initial: true },
+    subdomain: { type: Types.Text, initial: true }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 });
