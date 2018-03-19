@@ -1,3 +1,17 @@
+// VHOST TESTING
+// -----------------------------------------
+
+var path = require('path'),
+    evh = require('express-vhost'),
+    express = require('express'),
+    server = express();
+    
+// express vhost 
+server.use(evh.vhost(server.enabled('trust proxy')));
+server.listen(3000); //port 3000
+
+// -----------------------------------------
+
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
 require('dotenv').config();
@@ -52,6 +66,15 @@ keystone.set('nav', {
 
 // Start Keystone to connect to your database and initialise the web server
 
+// --------------------------- 
 
+/**
+keystone.mount () will prepare everything to start the keystone. This is very important!
+**/
+keystone.mount();
+
+evh.register('hej.elinworld.kz', keystone.app); //registers the keystone in the defined field
+
+// ---------------------------
 
 keystone.start();
