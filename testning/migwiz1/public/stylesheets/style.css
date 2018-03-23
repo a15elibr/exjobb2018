@@ -97,7 +97,7 @@ a:hover {
 
 .headliner {
     font-size: 2em;
-    font-weight: 300;
+    font-weight: 200;
 }
 
 .subliner {
@@ -117,15 +117,7 @@ button {
 button:hover {
     background-color: #FFF;
     color: #77d4e5;
+    cursor: pointer;
 }
 
 /* ---------------------------------- */
-
-table {
-    padding: 5px;
-    border: 1px solid #f1f1f1;
-}
-
-tr, td {
-    padding: 5px;
-}
