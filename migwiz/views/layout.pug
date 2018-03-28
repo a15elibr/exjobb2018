@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .wrapper
+        header
+            h1 
+               img.image(src='http://localhost:3000/images/migwiz1.png')
+               a(href='/') MigWiz
+            nav 
+                ul
+                    li: a(href='/') Home
+                    li: a(href='/about') About
+        .content
+            block content
