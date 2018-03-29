@@ -46,8 +46,8 @@
             }
             
             .text {
-                width: 700px;
-                height: 600px;
+                width: 800px;
+                height: 500px;
                 border: 1px solid #f1f1f1;
                 padding: 10px;
                 margin-bottom: 20px;
@@ -60,16 +60,21 @@
             
             function get10(){
                 for(var i = 0; i < 10; i++){
-                    sentence = generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
-                    document.getElementById("gen-10").value += sentence;
+                    var sentence = generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
+                    document.getElementById("gen").value += sentence;
                 }
             }
             
             function get50(){
                 for(var i = 0; i < 50; i++){
-                    sentence = generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
-                    document.getElementById("gen-50").value += sentence;
+                    var sentence = generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
+                    document.getElementById("gen").value += sentence;
                 }
+            }
+            
+            function spaces(){
+                var sentence = "\n\n"; 
+                document.getElementById("gen").value += sentence;
             }
 
         </script>
@@ -77,17 +82,12 @@
     <body>
         <h1>Generate some text</h1>
         <section class="wrapper">
-            
             <section class="item">
-                <textarea class="text" id="gen-10"></textarea>
+                <textarea class="text" id="gen"></textarea>
                 <button onClick="get10();">10 sentences</button>
-            </section>
-
-            <section class="item">
-                <textarea class="text" id="gen-50"></textarea>
                 <button onClick="get50();">50 sentences</button>
+                <button onClick="spaces();">Spaces</button>
             </section>
-            
         </section>
     </body>
 </html>
