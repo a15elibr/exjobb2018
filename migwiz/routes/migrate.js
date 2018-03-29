@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 
     // object to hold users
     var userList = [];
+    // object to hold posts
     
     // MYSQL
     // connect to db
@@ -23,11 +24,6 @@ router.get('/', function(req, res, next) {
       database: "test"
     });
     con.connect();
-    
-    // (( wordPressApp- user_login, user_pass, user_email, user_registered FROM wp_users ))
-    // 'SELECT ID, user_login, user_pass, user_email, user_registered FROM wp_users WHERE ID = 5;'
-    // (( test - LastName, FirstName, UserName, RegDate, Email, Pass, ID FROM User ))
-    // 'SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User WHERE ID = 1;'
     
     // query users
     con.query('SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User;', function(err, rows, fields) {
