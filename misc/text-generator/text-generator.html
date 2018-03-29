@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Generate some nice tings</title>
+        <style>
+
+            body {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 200;
+                font-size: 1.2em;
+                padding: 20px;
+                text-align:center;
+            }
+            
+            h1 {
+                font-weight: 200;
+            }
+            
+            button {
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #77d4e5;
+                border: 3px solid #77d4e5;
+                text-transform: uppercase;
+                color: #FFF;
+            }
+
+            button:hover {
+                background-color: #FFF;
+                color: #77d4e5;
+                cursor: pointer;
+            }
+            
+            .wrapper {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .item {
+                display: block;
+                margin: 5px;
+            }
+            
+            .text {
+                width: 800px;
+                height: 500px;
+                border: 1px solid #f1f1f1;
+                padding: 10px;
+                margin-bottom: 20px;
+                display: block;
+            }
+
+        </style>
+        <script src="contextfreegrammar.js"></script> 
+        <script>
+            
+            function get10(){
+                for(var i = 0; i < 10; i++){
+                    var sentence = generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
+                    document.getElementById("gen").value += sentence;
+                }
+            }
+            
+            function get50(){
+                for(var i = 0; i < 50; i++){
+                    var sentence = generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
+                    document.getElementById("gen").value += sentence;
+                }
+            }
+            
+            function spaces(){
+                var sentence = "\n\n"; 
+                document.getElementById("gen").value += sentence;
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Generate some text</h1>
+        <section class="wrapper">
+            <section class="item">
+                <textarea class="text" id="gen"></textarea>
+                <button onClick="get10();">10 sentences</button>
+                <button onClick="get50();">50 sentences</button>
+                <button onClick="spaces();">Spaces</button>
+            </section>
+        </section>
+    </body>
+</html>
