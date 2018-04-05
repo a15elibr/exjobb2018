@@ -18,6 +18,7 @@ var index = require('./routes/index');
 var migrate = require('./routes/migrate');
 var users = require('./routes/users');
 var success = require('./routes/success');
+var about = require('./routes/about');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/success', success);
 app.use('/migrate', migrate);
+app.use('/about', about);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

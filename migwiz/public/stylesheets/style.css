@@ -1,3 +1,14 @@
+/* ------------------------------- */ 
+/* 1 BASIC
+/* 2 FRONT PAGE
+/* 3 COMMON
+/* ------------------------------- */
+
+
+/* ------------------------------- */ 
+/* 1
+/* ------------------------------- */
+
 * {
     padding: 0;
     margin: 0;
@@ -9,12 +20,13 @@ html, body {
 }
 
 body {
-    font: 1.2em "Roboto", "Lato", Arial, sans-serif; 
+    font: 1em 'Roboto', sans-serif; 
     color: #444;
-    font-weight: 300;
 }
 
 header {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     background: #FFF;
     box-shadow: 0 0 20px rgba(0,0,0,0.07);
     padding: 30px;
@@ -27,47 +39,82 @@ header {
     width: 15px;
     padding-right: 10px;
 }
-/* ------------------------------- */ 
+
+p {
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
 
 h1 {
     font-size: 20px;
+    letter-spacing: 1px;
     display: inline;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
-h1 a {
-    color: #444;
-    font-weight: 400;
+    h1 a {
+        color: #444;
+    }
+
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 1em;
 }
 
 nav {
     font-size: 16px;
+    font-weight: 600;
     display: inline;
     float: right;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-    ul {
+    nav ul {
         list-style-type: none;
         display: inline;
     }
 
-    li {
+    nav li {
         display: inline;
         padding-right: 30px;
-        font-weight: 400;
     }
 
+a {
+    color: #444;
+    text-decoration: none;
+}
 
-/* ------------------------------- */ 
+    a:hover {
+        color: #77d4e5;
+    }
+
 
 .wrapper {
     width: 100%;
     height: 100%;
 }
 
-.content {
+    .content {
+        width: 100%;
+        height: 80%;
+        box-sizing: border-box;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+/* ------------------------------- */ 
+/* 2 FRONT PAGE
+/* Center text the fläxbåx way
+/* ------------------------------- */
+
+.flexbox-wrapper {
     width: 100%;
-    height: 80%;
+    height: 100%;
     box-sizing: border-box;
     text-align: center;
     display: flex;
@@ -81,23 +128,39 @@ nav {
 
 .item {
     margin: 10px;
+    max-width: 50%;
 }
 
 
-a {
-    color: #444;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #77d4e5;
-}
-
+/* ------------------------------- */
+/* 3 COMMON 
 /* ------------------------------- */ 
 
+.content-wrapper {
+    text-align: left;
+    padding: 30px;
+    padding-left: 16%;
+}
+
+.title {
+
+    margin-top: 15px;
+}
+
+.text {
+
+    margin-top: 15px;
+    margin-right: 16%;
+
+}
+
+
 .headliner {
-    font-size: 2em;
-    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .subliner {
@@ -115,9 +178,49 @@ button {
 }
 
 button:hover {
-    background-color: #FFF;
-    color: #77d4e5;
+    background-color: #cc80ec;
+    color: #FFF;
     cursor: pointer;
+    border-radius: 5px;
+    border: 3px solid #cc80ec;
 }
 
+
+/* ---------------------------------- */ 
+/* ABOUT 
 /* ---------------------------------- */
+
+
+
+.features-wrapper {
+    width: 60%;
+    margin: 10px;
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.features-item {
+    align-content: baseline;
+}
+
+.features-icon {
+
+    width: 30px;
+    height: 35px;
+    display: inline;
+    float: left;
+    padding-top: 5px;
+    box-sizing: border-box;
+}
+
+.features-text {
+    height: 35px;
+    display: inline;
+    float: right;
+    
+}
