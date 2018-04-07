@@ -60,10 +60,10 @@ Enquiry.schema.methods.sendNotificationEmail = function (callback) {
 		}).send({
 			to: admins,
 			from: {
-				name: 'University',
-				email: 'contact@university.com',
+				name: 'Keystone',
+				email: 'contact@keystone.com',
 			},
-			subject: 'New Enquiry for University',
+			subject: 'New Enquiry for Keystone',
 			enquiry: enquiry,
 			brand: brand,
 		}, callback);

@@ -10,8 +10,8 @@ var keystone = require('keystone');
 // and documentation.
 
 keystone.init({
-	'name': 'University',
-	'brand': 'University',
+	'name': 'Keystone',
+	'brand': 'Keystone',
 
 	'less': 'public',
 	'static': 'public',
