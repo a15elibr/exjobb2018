@@ -11,22 +11,23 @@ var mongoose = require('mongoose');
 
 router.get('/', function(req, res, next) {
 
-    // object to hold users
+    // object to hold everything
     var userList = [];
-    // object to hold posts
     
     // MYSQL
     // connect to db
     var con = mysql.createConnection({
       host: "localhost",
-      user: "elin",
+      user: "root",
       password: "elinis",
-      database: "test"
+      database: "wordpress"
     });
     con.connect();
     
-    // query users
-    con.query('SELECT ID, FirstName, LastName, UserName, Email, RegDate, Pass FROM User;', function(err, rows, fields) {
+    // QUERY
+    // First get all users 
+    // ------------------
+    con.query('SELECT ID, user_login, user_email, user_registered, user_status, deleted FROM wp_users;', function(err, rows, fields) {
         if (err) {
             // no
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
@@ -37,26 +38,27 @@ router.get('/', function(req, res, next) {
                 // default - they're all students
                 // and no admin access
 		  		var user = {
-		  			'ID':rows[i].ID,
                     'name': {
-                            'first': rows[i].FirstName,
-                            'last': rows[i].LastName
+                            'first': undefined,
+                            'last': undefined,
                     },
-		  			'username':rows[i].UserName,
-                    'password':rows[i].Pass,
-                    'email':rows[i].Email,
-                    'regdate':rows[i].RegDate,
+                    'email':rows[i].user_email,
+                    'password': undefined,
+                    'username':rows[i].user_login,
+                    'wp_id':rows[i].ID,
+                    'regdate':rows[i].user_registered,
                     'isAdmin':false,
                     'group': 'student',
-                    'subname': rows[i].FirstName + ' ' + rows[i].LastName,
+                    'subname': rows[i].user_login,
 		  		}
                 // Add object into array
 		  		userList.push(user);
             }
-            
+
+            // ------------------
             // connecting to mongodb
             // via mongoose
-            mongoose.connect('mongoDB://localhost:27017/keystonejs', function(){
+            mongoose.connect('mongoDB://localhost:27017/keystone', function(){
                 console.log('connected');
             });
             // inserting 
