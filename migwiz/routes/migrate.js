@@ -24,9 +24,10 @@ router.get('/', function(req, res, next) {
     });
     con.connect();
     
-    // QUERY
-    // First get all users 
-    // ------------------
+    // QUERIES
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    
+    // First: Users
     con.query('SELECT ID, user_login, user_email, user_registered, user_status, deleted FROM wp_users;', function(err, rows, fields) {
         if (err) {
             // no
@@ -72,6 +73,11 @@ router.get('/', function(req, res, next) {
         var migStatus = true;
         res.render('success', { migStatus: migStatus, userList: userList });
     });
+    
+    // GET POSTS
+    // --------- 
+    
+    // ----------------------------------------------------------------------------------------------------------------------------------
     // close con
     con.end();
 });
