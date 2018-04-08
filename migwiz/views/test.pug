@@ -2,4 +2,6 @@ extends layout
 
 block content
     .item
-        .subliner #{user._id}
+        ul
+            each val in user.length ? user : ['There is nothing']
+                li= val
