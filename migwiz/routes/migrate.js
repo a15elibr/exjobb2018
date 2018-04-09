@@ -24,10 +24,9 @@ router.get('/', function(req, res, next) {
     });
     con.connect();
     
-    // QUERIES
-    // ----------------------------------------------------------------------------------------------------------------------------------
-    
-    // First: Users
+    // QUERY
+    // First get all users 
+    // ------------------
     con.query('SELECT ID, user_login, user_email, user_registered, user_status, deleted FROM wp_users;', function(err, rows, fields) {
         if (err) {
             // no
@@ -55,29 +54,11 @@ router.get('/', function(req, res, next) {
                 // Add object into array
 		  		userList.push(user);
             }
-
-            // ------------------
-            // connecting to mongodb
-            // via mongoose
-            mongoose.connect('mongoDB://localhost:27017/keystone', function(){
-                console.log('connected');
-            });
-            // inserting 
-            var conn = mongoose.connection;
-            conn.collection('users').insert(userList, function(err, result) {
-                if (err) return handleError(err);
-                console.log('inserted ' + result.rows + ' users');
-            });
 	  	}
         // render
         var migStatus = true;
         res.render('success', { migStatus: migStatus, userList: userList });
     });
-    
-    // GET POSTS
-    // --------- 
-    
-    // ----------------------------------------------------------------------------------------------------------------------------------
     // close con
     con.end();
 });
