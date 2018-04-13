@@ -2,7 +2,6 @@ var mysql = require('mysql');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var User = require('../models/User.js');
 
 // ----------------------
 // MIGRATE 
@@ -19,7 +18,9 @@ router.get('/', function(req, res, next) {
       password: "elinis",
       database: "wordpress"
     });
+    
     con1.connect();
+    
     // QUERY
     // First get all users 
     // ------------------
@@ -52,11 +53,13 @@ router.get('/', function(req, res, next) {
 
             }
 	  	}
+        
         var migStatus = true;
         res.render('success', { 
             migStatus: migStatus, 
             userList: userList, 
         });
+        
     });
 
     // close con

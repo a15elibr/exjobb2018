@@ -1,9 +1,8 @@
 extends layout
 
 block content
-    .item
-        .headliner Migration complete
-        .subliner #{userList.length} users added
-    .item
-        a(href='/mongo')
-            button CONTINUE
+    .flexbox-wrapper
+        .item
+            .headliner Migration complete
+        .item
+            .subliner #{userList.length} users added

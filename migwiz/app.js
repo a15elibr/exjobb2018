@@ -4,15 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
-
-// vhost testing 
-// -------------------------------------------
-
-var serveStatic = require('serve-static');
-var vhost = require('vhost');
-
-// -------------------------------------------
 
 var index = require('./routes/index');
 var migrate = require('./routes/migrate');
