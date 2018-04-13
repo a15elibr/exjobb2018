@@ -58,6 +58,7 @@ exports = module.exports = function (req, res) {
 	view.on('init', function (next) {
 
 		var q = keystone.list('Post').paginate({
+            author: 
 			page: req.query.page || 1,
 			perPage: 10,
 			maxPages: 10,

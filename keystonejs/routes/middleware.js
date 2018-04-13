@@ -8,6 +8,7 @@
  * modules in your project's /lib directory.
  */
 var _ = require('lodash');
+var keystone = require('keystone');
 
 
 /**
@@ -54,4 +55,15 @@ exports.requireUser = function (req, res, next) {
 	} else {
 		next();
 	}
+};
+
+
+
+exports.getUrl = function (req, res, next) {
+    var Page = keystone.list('Page').model;
+    Page.findOne().where('path', req.params.page).exec(function(err, page) {
+        if (err || !page) return next(err);
+        res.locals.page = page;
+        next();
+    });
 };

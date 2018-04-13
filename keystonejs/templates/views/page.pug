@@ -7,3 +7,11 @@ block intro
 block content
     .container
         p #{page.page}
+
+        if !data.post
+            h2 Invalid Post.
+        else
+            header
+                h1= data.post.title
+
+        
