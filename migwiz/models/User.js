@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
     
     // via mongoose
     mongoose.connect('mongoDB://localhost:27017/keystone', function(){
-        console.log('connected');
+        console.log('connectedBLUEIUTIE');
     });
     var Schema = mongoose.Schema;
 
