@@ -20,7 +20,6 @@ var users = require('./routes/users');
 var success = require('./routes/success');
 var about = require('./routes/about');
 var test = require('./routes/test');
-var mongo = require('./routes/mongo');
 
 var app = express();
 
@@ -42,7 +41,6 @@ app.use('/success', success);
 app.use('/migrate', migrate);
 app.use('/about', about);
 app.use('/test', test);
-app.use('/mongo', mongo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
