@@ -33,12 +33,23 @@ var routes = {
 
 // Setup Route Bindings
 exports = module.exports = function (app) {
+    
+    var Page = keystone.list('Page').model;
+    
 	// Views
 	app.get('/', routes.views.index);
 	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/gallery', routes.views.gallery);
 	app.all('/contact', routes.views.contact);
+    //app.get('/pages/:page', routes.views.page);
+    app.get('/pages/:page', function(req, res, next) {
+      Page.findOne().where('path', req.params.page).exec(function(err, page) {
+          console.log(page);
+        if (err || !page) return next(err);
+        res.render('page', { page: page });
+      });
+    });
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
