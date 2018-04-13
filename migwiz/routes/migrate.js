@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
     // QUERY
     // First get all users 
     // ------------------
-    con1.query('SELECT ID, user_login, user_email, user_registered, user_status, deleted FROM wp_users;', function(err, rows, fields) {
+    con1.query('SELECT ID, user_login, user_email, user_registered FROM wp_users;', function(err, rows, fields) {
         if (err) {
             // no
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
@@ -36,8 +36,8 @@ router.get('/', function(req, res, next) {
                 // and no admin access
 		  		var user = {
                     'name': {
-                            'first': undefined,
-                            'last': undefined,
+                            'first': 'noName',
+                            'last': 'noName',
                     },
                     'email':rows[i].user_email,
                     'password': undefined,
@@ -52,6 +52,19 @@ router.get('/', function(req, res, next) {
 		  		userList.push(user);
 
             }
+            
+            // INSERTION
+            // connecting to mongodb
+            // via mongoose
+            mongoose.connect('mongoDB://localhost:27017/keystone', function(){
+                console.log('connected');
+            });
+            // inserting 
+            var conn = mongoose.connection;
+            conn.collection('users').insert(userList, function(err, result) {
+                if (err) return handleError(err);
+                console.log('inserted ' + result.rows + ' users');
+            });
 	  	}
         
         var migStatus = true;
