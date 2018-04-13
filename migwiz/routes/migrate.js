@@ -2,32 +2,28 @@ var mysql = require('mysql');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var User = require('../models/User.js');
 
 // ----------------------
 // MIGRATE 
-// As of now: manual connections
-// connect to sql --> get users --> insert into object --> connect to mongodb --> insert object
+// step one: users
 // ----------------------
 
-router.get('/', function(req, res, next) {
+// object to hold users
+var userList = [];
 
-    // object to hold everything
-    var userList = [];
-    
-    // MYSQL
-    // connect to db
-    var con = mysql.createConnection({
+router.get('/', function(req, res, next) {
+    var con1 = mysql.createConnection({
       host: "localhost",
       user: "root",
       password: "elinis",
       database: "wordpress"
     });
-    con.connect();
-    
+    con1.connect();
     // QUERY
     // First get all users 
     // ------------------
-    con.query('SELECT ID, user_login, user_email, user_registered, user_status, deleted FROM wp_users;', function(err, rows, fields) {
+    con1.query('SELECT ID, user_login, user_email, user_registered, user_status, deleted FROM wp_users;', function(err, rows, fields) {
         if (err) {
             // no
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
@@ -53,14 +49,17 @@ router.get('/', function(req, res, next) {
 		  		}
                 // Add object into array
 		  		userList.push(user);
+
             }
 	  	}
-        // render
         var migStatus = true;
-        res.render('success', { migStatus: migStatus, userList: userList });
+        res.render('success', { 
+            migStatus: migStatus, 
+            userList: userList, 
+        });
     });
-    // close con
-    con.end();
-});
 
+    // close con
+    con1.end();
+});
 module.exports = router;
