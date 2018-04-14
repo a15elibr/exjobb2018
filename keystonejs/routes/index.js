@@ -43,9 +43,6 @@ exports = module.exports = function (app) {
     app.get('/student/:page', middleware.getUrl, routes.views.page);
     app.all('/user', middleware.requireUser, routes.views.user);
     app.all('/activation/:key?', middleware.getKey, routes.views.activation);
-        
-
-	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-	// app.get('/protected', middleware.requireUser, routes.views.protected);
 
 };
+

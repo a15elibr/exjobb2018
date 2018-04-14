@@ -15,15 +15,13 @@ exports = module.exports = function (req, res) {
 
         User.model.findOne({ _id: req.user._id}, function(findError, user) {
             if (findError) {
-                // handle error
-                console.log("didnt find user");
+                console.log("didnt find user", findError);
             } else {
                 console.log("found user");
                 user.password = locals.formData.password;
                 user.save(function(saveError) {
                     if (saveError) {
-                        // handle error
-                        console.log("couldnt save password");
+                        console.log("couldnt save password", saveError);
                     } else {
                         console.log("password saved");
                         locals.passwordSubmitted = true;
@@ -32,10 +30,8 @@ exports = module.exports = function (req, res) {
             }
         });
         next();
-        
 	});
-
-
 	// Render the view
 	view.render('user');
 };
+

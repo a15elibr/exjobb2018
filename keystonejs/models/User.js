@@ -21,7 +21,7 @@ User.add({
 },  'Subdomain', {
     subname: { type: Types.Text, initial: true },
 },  'Activation key', {
-    activation_key: { type: String, initial: false, required: false },
+    activation_key: { type: String, initial: false, required: false, unique: true },
     isKeyActive: { type: Boolean },
 });
 
@@ -43,15 +43,15 @@ User.schema.pre('save', function(next) {
             domain: 'sandboxe93479b36ba5496bb2f1f69131955a2b.mailgun.org',
             to: this.email,
             from: {
-                name: 'Your Site',
-                email: 'hello@yoursite.com',
+                name: 'Keystone',
+                email: 'hello@keystone.com',
             },
             subject: 'Welcome to KeystoneJS',
         }, function (err, result) {
             if (err) {
-                console.error('Mailgun test failed with error:\n', err);
+                console.error('User email could not be sent:\n', err);
             } else {
-                console.log('Successfully sent Mailgun test with result:\n', result);
+                console.log('Successfully sent user email with result:\n', result);
             }
         });
     }
