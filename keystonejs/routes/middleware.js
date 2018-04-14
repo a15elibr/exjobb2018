@@ -60,10 +60,13 @@ exports.requireUser = function (req, res, next) {
 
 
 exports.getUrl = function (req, res, next) {
-    var Page = keystone.list('Page').model;
-    Page.findOne().where('path', req.params.page).exec(function(err, page) {
-        if (err || !page) return next(err);
-        res.locals.page = page;
-        next();
+    var User = keystone.list('User').model;
+    User.findOne().where('subname', req.params.page).exec(function(err, result) {
+        if (err || !result) {
+            res.redirect('/error/404');
+        } else {
+            res.locals.result = result;
+            next();
+        }
     });
 };
