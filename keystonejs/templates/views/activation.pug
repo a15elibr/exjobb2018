@@ -1,0 +1,21 @@
+extends ../layouts/default
+
+block content
+    .container
+        if(!result.isKeyActive)
+            h1 Password has already been changed.
+        else
+            h1 One time password changer
+            p welcome #{result.username}
+            hr
+            p Enter your new password
+            .row: .col-sm-8.col-md-6
+                form(method='post', action='/activation')
+                    .form-group
+                        label New password
+                        input(type='password', name='password').form-control
+                    .form-group
+                        label Enter activation key
+                        input(type='text', name='key').form-control
+                    .form-actions
+                        button(type='submit').btn.btn-primary Submit
