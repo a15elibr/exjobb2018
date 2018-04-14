@@ -24,6 +24,7 @@ exports.initLocals = function (req, res, next) {
 		{ label: 'Blog', key: 'blog', href: '/blog' },
 		{ label: 'Gallery', key: 'gallery', href: '/gallery' },
 		{ label: 'Contact', key: 'contact', href: '/contact' },
+        { label: 'User Panel', key: 'user', href: '/user' },
 	];
 	res.locals.user = req.user;
 	next();
@@ -58,6 +59,9 @@ exports.requireUser = function (req, res, next) {
 };
 
 
+/**
+    Subdomain mapping
+*/
 
 exports.getUrl = function (req, res, next) {
     var User = keystone.list('User').model;
@@ -65,6 +69,25 @@ exports.getUrl = function (req, res, next) {
         if (err || !result) {
             res.redirect('/error/404');
         } else {
+            res.locals.result = result;
+            next();
+        }
+    });
+};
+
+
+
+/**
+    Activation key
+*/
+
+exports.getKey = function (req, res, next) {
+    var User = keystone.list('User').model;
+    User.findOne().where('activation_key', req.params.key).exec(function(err, result) {
+        if (err || !result) {
+            res.redirect('/error/404');
+        } else {
+            console.log(result);
             res.locals.result = result;
             next();
         }
