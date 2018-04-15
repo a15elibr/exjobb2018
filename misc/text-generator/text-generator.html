@@ -77,6 +77,16 @@
                 document.getElementById("gen").value += sentence;
             }
 
+            function randomString(){
+                var sentence = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                document.getElementById("gen").value += sentence;
+            }
+
+            function clear(){
+                var sentence = "";
+                document.getElementById("gen").value = sentence;
+            }
+
         </script>
     </head>
     <body>
@@ -87,6 +97,8 @@
                 <button onClick="get10();">10 sentences</button>
                 <button onClick="get50();">50 sentences</button>
                 <button onClick="spaces();">Spaces</button>
+                <button onClick="randomString();">Random string</button>
+                <button onClick="clear();">Clear</button>
             </section>
         </section>
     </body>
