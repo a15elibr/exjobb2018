@@ -8,9 +8,6 @@ var mongoose = require('mongoose');
 // step one: users
 // ----------------------
 
-// object to hold users
-var userList = [];
-
 router.get('/', function(req, res, next) {
     var con1 = mysql.createConnection({
       host: "localhost",
@@ -20,6 +17,8 @@ router.get('/', function(req, res, next) {
     });
     
     con1.connect();
+    // object to hold users
+    var userList = [];
     
     // QUERY
     // First get all users 
@@ -30,7 +29,12 @@ router.get('/', function(req, res, next) {
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
         } else {
             // loop through result
+            console.log("found" + rows.length + " users");
 	  		for (var i = 0; i < rows.length; i++) {
+                
+                // generate a random activation key 
+                var key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                
 	  			// save result in object
                 // default - they're all students
                 // and no admin access
@@ -47,6 +51,8 @@ router.get('/', function(req, res, next) {
                     'isAdmin':false,
                     'group': 'student',
                     'subname': rows[i].user_login,
+                    'activation_key': key,
+                    'isKeyActive': true,
 		  		}
                 // Add object into array
 		  		userList.push(user);
@@ -62,8 +68,11 @@ router.get('/', function(req, res, next) {
             // inserting 
             var conn = mongoose.connection;
             conn.collection('users').insert(userList, function(err, result) {
-                if (err) return handleError(err);
-                console.log('inserted ' + result.rows + ' users');
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(result);
+                }
             });
 	  	}
         
