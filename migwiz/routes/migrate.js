@@ -13,31 +13,31 @@ router.get('/', function(req, res, next) {
       host: "localhost",
       user: "root",
       password: "elinis",
-      database: "wordpress"
+      database: "slash"
     });
     
     con1.connect();
-    // object to hold users
+    
+    // variables
     var userList = [];
     
     // QUERY
-    // First get all users 
+    // First get all users + subdomain
     // ------------------
-    con1.query('SELECT ID, user_login, user_email, user_registered FROM wp_users;', function(err, rows, fields) {
+    con1.query('SELECT wp_users.ID, wp_users.user_email, wp_users.user_login, wp_users.user_registered, wp_blogs.path FROM wp_users INNER JOIN wp_blogs ON wp_users.ID = wp_blogs.blog_id;', function(err, rows, fields) {
+        
         if (err) {
             // no
             res.status(500).json({"status_code": 500,"status_message": "internal server error"});
+            
         } else {
             // loop through result
-            console.log("found" + rows.length + " users");
-	  		for (var i = 0; i < rows.length; i++) {
-                
+            for (var i = 0; i < rows.length; i++) {
+
                 // generate a random activation key 
                 var key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                 
-	  			// save result in object
-                // default - they're all students
-                // and no admin access
+                // save to object
 		  		var user = {
                     'name': {
                             'first': 'noName',
@@ -50,10 +50,12 @@ router.get('/', function(req, res, next) {
                     'regdate':rows[i].user_registered,
                     'isAdmin':false,
                     'group': 'student',
-                    'subname': rows[i].user_login,
+                    // remove slashes from path
+                    'subname': rows[i].path.replace(/\//g, ""),
                     'activation_key': key,
                     'isKeyActive': true,
 		  		}
+                
                 // Add object into array
 		  		userList.push(user);
 
@@ -62,23 +64,28 @@ router.get('/', function(req, res, next) {
             // INSERTION
             // connecting to mongodb
             // via mongoose
-            mongoose.connect('mongoDB://localhost:27017/keystone', function(){
-                console.log('connected');
+            mongoose.connect('mongoDB://localhost:27017/keystone', function(err){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log('connected');
+                }
             });
+            
             // inserting 
             var conn = mongoose.connection;
             conn.collection('users').insert(userList, function(err, result) {
                 if(err){
                     console.log(err);
-                }else{
-                    console.log(result);
+                } else {
+                    console.log("user insertion successfull");
                 }
             });
+             
 	  	}
-        
-        var migStatus = true;
+
+        // Render view
         res.render('success', { 
-            migStatus: migStatus, 
             userList: userList, 
         });
         
