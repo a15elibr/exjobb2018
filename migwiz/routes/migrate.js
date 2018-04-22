@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 // ----------------------
 
 router.get('/', function(req, res, next) {
+    
     var con1 = mysql.createConnection({
       host: "localhost",
       user: "root",
@@ -20,18 +21,16 @@ router.get('/', function(req, res, next) {
     
     // variables
     var userList = [];
+    var query = "SELECT wp_users.ID, wp_users.user_email, wp_users.user_login, wp_users.user_registered, wp_blogs.path FROM wp_users INNER JOIN wp_blogs ON wp_users.ID = wp_blogs.blog_id;";
     
     // QUERY
-    // First get all users + subdomain
     // ------------------
-    con1.query('SELECT wp_users.ID, wp_users.user_email, wp_users.user_login, wp_users.user_registered, wp_blogs.path FROM wp_users INNER JOIN wp_blogs ON wp_users.ID = wp_blogs.blog_id;', function(err, rows, fields) {
-        
+    con1.query(query, function(err, rows, fields) {
         if (err) {
-            // no
-            res.status(500).json({"status_code": 500,"status_message": "internal server error"});
+            console.log(err);
             
         } else {
-            // loop through result
+            
             for (var i = 0; i < rows.length; i++) {
 
                 // generate a random activation key 
@@ -77,21 +76,37 @@ router.get('/', function(req, res, next) {
             conn.collection('users').insert(userList, function(err, result) {
                 if(err){
                     console.log(err);
+                    var mig = {
+                        'success': false,
+                        'error': err,
+                    }
+                    res.render('migrate', { mig: mig });
                 } else {
                     console.log("user insertion successfull");
+                    var mig = {
+                        'success': true,
+                        'msg': 'Step one complete! Amazing. \nThe next two steps will do some work in background, while you get to enjoy some... entertainment.',
+                        'next': 'migrate2',
+                        'first': 'check-green.png',
+                        'second': 'check-grey.png',
+                        'third': 'check-grey.png',
+                        'fourth': 'check-grey.png',
+                        'done': false,
+                    }
+                    res.render('migrate', { mig: mig });
                 }
             });
              
 	  	}
-
-        // Render view
-        res.render('success', { 
-            userList: userList, 
-        });
-        
     });
 
     // close con
     con1.end();
+    
 });
+
+
 module.exports = router;
+
+
+

@@ -2,4 +2,8 @@ extends layout
 
 block content
     .item
-        p Hello
+        if test[0].complete
+            p= test[0].msg
+        
+        if test[1].complete
+            p= test[1].msg

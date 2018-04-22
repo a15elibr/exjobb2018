@@ -49,10 +49,28 @@ router.get('/', function(req, res, next){
     connection6.query(sql, [req.users], function(err){
         if(err){
             console.log(err);
+            var mig = {
+                'success': false,
+                'error': err,
+            }
+            res.render('migrate', { mig: mig });
+            
+        } else {
+            var mig = {
+                'success': true,
+                'msg': 'Step 3 complete! This is going really well! \nAnother joke: What has 4 letters, sometimes has 9 letters, always has 6 letters, but never has 5 letters.',
+                'next': 'migrate4',
+                'first': 'check-green.png',
+                'second': 'check-green.png',
+                'third': 'check-green.png',
+                'fourth': 'check-grey.png',
+                'done': false,
+            }
+
+            res.render('migrate', { mig: mig });
         }
         connection6.end();
-    })
-    res.render('migrate3', { users: req.users});
+    });
     
 });
 module.exports = router;

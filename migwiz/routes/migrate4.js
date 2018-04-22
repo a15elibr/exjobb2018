@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
     
     // variables
     var posts = [];
-    var query = "SELECT all_user_posts6.post_id, all_user_posts6.post_author, all_user_posts6.post_title, all_user_posts6.post_date, all_user_posts6.post_modified, all_user_posts6.post_type, all_user_posts6.post_content, all_user_posts6.post_password, all_user_posts6.post_status, all_user_posts6.post_name, all_user_posts6.post_parent, keystone_id_map2.k_id FROM all_user_posts6 INNER JOIN keystone_id_map2 ON all_user_posts6.post_author = keystone_id_map2.wp_id;";
+    var query = "SELECT all_user_posts.post_id, all_user_posts.post_author, all_user_posts.post_title, all_user_posts.post_date, all_user_posts.post_modified, all_user_posts.post_type, all_user_posts.post_content, all_user_posts.post_password, all_user_posts.post_status, all_user_posts.post_name, all_user_posts.post_parent, keystone_id_map2.k_id FROM all_user_posts INNER JOIN keystone_id_map2 ON all_user_posts.post_author = keystone_id_map2.wp_id;";
     
     // QUERY
     // ------------------
@@ -82,13 +82,30 @@ router.get('/', function(req, res, next) {
             // inserting 
             var conn2 = mongoose.connection;
             conn2.collection('posts').insert(posts, function(err, result) {
+                
                 if(err){
                     console.log(err);
+                    var mig = {
+                        'success': false,
+                        'error': err,
+                    }
+                    res.render('migrate', { mig: mig });
+                    
                 } else {
-                    console.log("user insertion successfull");
+                    var mig = {
+                        'success': true,
+                        'msg': 'Step 4 complete! Wow, the migration is actually complete now.',
+                        'next': ' ',
+                        'first': 'check-green.png',
+                        'second': 'check-green.png',
+                        'third': 'check-green.png',
+                        'fourth': 'check-green.png',
+                        'done': true,
+                    }
+
+                    res.render('migrate', { mig: mig });
                 }
             });
-            res.render('migrate4', {posts: posts});
         }
     });
 
