@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    .item
+        ul
+            each val in posts.length ? posts : ['There is nothing']
+                li !{JSON.stringify(val)}

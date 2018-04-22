@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    .item
+        ul
+            each val in users.length ? users : ['There is nothing']
+                li !{JSON.stringify(val)}

@@ -87,6 +87,22 @@
                 document.getElementById("gen").value = sentence;
             }
 
+            function genHostFile(){
+                var sentence = "";
+                for(var i = 0; i < 100; i++){
+                    sentence += "127.0.0.1      student" + i + ".wordpress.lc \n";
+                }
+                document.getElementById("gen").value += sentence;
+            }
+
+            function genVhost(){
+                var sentence = "";
+                for(var i = 0; i < 100; i++){
+                    sentence += '<VirtualHost *:80>\n   ServerName student' + i + '.wordpress.lc \n   ServerAlias student' + i + '.wordpress.lc \n   DocumentRoot "C:/xampp/htdocs/elin/" \n</VirtualHost>\n\n';
+                }
+                document.getElementById("gen").value += sentence;
+            }
+
         </script>
     </head>
     <body>
@@ -98,6 +114,8 @@
                 <button onClick="get50();">50 sentences</button>
                 <button onClick="spaces();">Spaces</button>
                 <button onClick="randomString();">Random string</button>
+                <button onClick="genHostFile();">Host file</button>
+                <button onClick="genVhost();">Vhost</button>
                 <button onClick="clear();">Clear</button>
             </section>
         </section>

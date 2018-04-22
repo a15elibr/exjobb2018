@@ -24,6 +24,9 @@ Post.add({
 		extended: { type: Types.Html, wysiwyg: true, height: 400 },
 	},
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: true },
+    password: { type: String },
+    post_id: { type: Types.Number },
+    post_parent: { type: Types.Number },
 });
 
 Post.schema.virtual('content.full').get(function () {
