@@ -44,7 +44,7 @@ router.get('/', function(req, res, next){
     });
     connection6.connect();
     
-    var sql = "INSERT INTO keystone_id_map2 (wp_id, k_id) VALUES ?";
+    var sql = "INSERT INTO keystone_id_map (wp_id, k_id) VALUES ?";
     console.log(req.users);
     connection6.query(sql, [req.users], function(err){
         if(err){

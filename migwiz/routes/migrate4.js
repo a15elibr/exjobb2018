@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
     
     // variables
     var posts = [];
-    var query = "SELECT all_user_posts.post_id, all_user_posts.post_author, all_user_posts.post_title, all_user_posts.post_date, all_user_posts.post_modified, all_user_posts.post_type, all_user_posts.post_content, all_user_posts.post_password, all_user_posts.post_status, all_user_posts.post_name, all_user_posts.post_parent, keystone_id_map2.k_id FROM all_user_posts INNER JOIN keystone_id_map2 ON all_user_posts.post_author = keystone_id_map2.wp_id;";
+    var query = "SELECT all_user_posts.post_id, all_user_posts.post_author, all_user_posts.post_title, all_user_posts.post_date, all_user_posts.post_modified, all_user_posts.post_type, all_user_posts.post_content, all_user_posts.post_password, all_user_posts.post_status, all_user_posts.post_name, all_user_posts.post_parent, keystone_id_map.k_id FROM all_user_posts INNER JOIN keystone_id_map ON all_user_posts.post_author = keystone_id_map.wp_id;";
     
     // QUERY
     // ------------------

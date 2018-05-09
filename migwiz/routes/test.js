@@ -13,6 +13,7 @@ router.get('/', function(req, res, next){
     }
     tests.push(test1);
     req.test = tests;
+    
     next();
 });
 
@@ -26,4 +27,5 @@ router.get('/', function(req, res, next){
     res.render('test', {test: req.test});
     
 });
+
 module.exports = router;
