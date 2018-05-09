@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var migrate = require('./routes/migrate');
-var users = require('./routes/users');
-var success = require('./routes/success');
 var about = require('./routes/about');
 var test = require('./routes/test');
 var migrate2 = require('./routes/migrate2');
@@ -31,11 +29,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
-app.use('/success', success);
-app.use('/migrate', migrate);
 app.use('/about', about);
 app.use('/test', test);
+app.use('/migrate', migrate);
 app.use('/migrate2', migrate2);
 app.use('/migrate3', migrate3);
 app.use('/migrate4', migrate4);
