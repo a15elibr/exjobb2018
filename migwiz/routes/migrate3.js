@@ -40,7 +40,7 @@ router.get('/', function(req, res, next){
         host: 'localhost',
         user: 'root',
         password: 'elinis',
-        database: 'slash',
+        database: 'slash2',
     });
     connection6.connect();
     

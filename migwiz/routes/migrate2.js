@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
         host: 'localhost',
         user: 'root',
         password: 'elinis',
-        database: 'slash',
+        database: 'slash2',
     });
     tblCon.connect();
     var SQL = "CREATE TABLE all_user_posts (post_id INT, post_author INT, post_title varchar(255), post_date DATETIME, post_modified DATETIME, post_type varchar(4), post_content nvarchar(4000), post_password varchar(255), post_status varchar(255), post_name varchar(255), post_parent INT, PRIMARY KEY(post_author, post_id));";
@@ -74,7 +74,7 @@ router.get('/', function(req, res, next) {
             host: 'localhost',
             user: 'root',
             password: 'elinis',
-            database: 'slash',
+            database: 'slash2',
         });
         
         connection2.connect();
