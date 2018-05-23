@@ -7,25 +7,66 @@ var app = express();
 
 // -----------------------
 // Migrate: step 2
-// Put all posts from users into 1 table.
+// Insert users and posts
 // -----------------------
+
 
 router.get('/', function(req, res, next){   
     
-    mongoose.connect('req.app.locals.keystone', function(){
-        console.log('connected');
+    // INSERT USERS
+    
+    mongoose.connect(req.app.locals.keystone, function(err){
+        if(err){
+            console.log(err);
+        }else{
+            console.log('connected');
+        }
+    });
+    
+    // inserting 
+    var conn = mongoose.connection;
+    conn.collection('users').insert(req.app.locals.userList, function(err, result) {
+        if(err){
+            console.log(err);
+            var mig = {
+                'success': false,
+                'error': err,
+            }
+            res.render('migrate', { mig: mig });
+            
+        } else {
+            console.log("inserted users");
+            next();
+        }
     });
 
-    // Getting the amount of users who have been added
-    User.find({ group: 'student' }, function(err, rows, fields) 
+});
+
+router.get('/', function(req, res, next){   
+    
+    // get _id of each wp_id
+    
+    mongoose.connect(req.app.locals.keystone, function(err){
+        if(err){
+            console.log(err);
+        }else{
+            console.log('connected');
+        }
+    });
+
+    var users = [];
+    User.find({ group: 'student' }, '_id wp_id', function(err, rows, fields) 
     {
         if (err){
             console.log(err);
             next(err);
         } else {
-            var users = [];
             for(var i = 0; i < rows.length; i++){
-                users.push(rows[i]);
+                user = [
+                        rows[i].wp_id,
+                        rows[i]._id
+                ];
+                users.push(user);
             }
             req.users = users;
             next();
@@ -33,29 +74,37 @@ router.get('/', function(req, res, next){
     });
 });
 
-router.get('/', function(req, res, next) {
-   
-    // Create table 
-    var tblCon = mysql.createConnection({
+router.get('/', function(req, res, next){   
+
+    // Inserting _id's to keystone_id_map
+    
+    var connection6 = mysql.createConnection({
+        multipleStatements: true,
         host: req.app.locals.mysql_host,
         user: req.app.locals.mysql_user,
         password: req.app.locals.mysql_pw,
         database: req.app.locals.mysql_db
     });
-    tblCon.connect();
-    var SQL = "CREATE TABLE all_user_posts (post_id INT, post_author INT, post_title varchar(255), post_date DATETIME, post_modified DATETIME, post_type varchar(4), post_content nvarchar(4000), post_password varchar(255), post_status varchar(255), post_name varchar(255), post_parent INT, PRIMARY KEY(post_author, post_id));";
-    tblCon.query(SQL, function(err, result){
+    connection6.connect();
+    
+    var sql = "INSERT INTO keystone_id_map (wp_id, k_id) VALUES ?";
+    connection6.query(sql, [req.users], function(err){
         if(err){
-            req.error = true;
-            req.err = err;
+            console.log(err);
+            var mig = {
+                'success': false,
+                'error': err,
+            }
+            res.render('migrate', { mig: mig });
+            
         } else {
-            req.error = false;
+            console.log("inserted ID mapping");
+            next();
         }
+        connection6.end();
     });
-    next();
     
 });
-
 
 router.get('/', function(req, res, next) {
     
@@ -112,11 +161,7 @@ router.get('/', function(req, res, next) {
 
             res.render('migrate', { mig: mig });
         }
-        
-
     }
-
-
 });
 
 module.exports = router;

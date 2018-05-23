@@ -1,9 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var app = express();
     
 // via mongoose
-mongoose.connect('mongoDB://localhost:27017/keystone');
+mongoose.connect(req.app.locals.keystone);
 var Schema = mongoose.Schema;
 
 // create a schema

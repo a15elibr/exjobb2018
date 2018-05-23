@@ -12,7 +12,6 @@ var test = require('./routes/test');
 var settings = require('./routes/settings');
 var migrate2 = require('./routes/migrate2');
 var migrate3 = require('./routes/migrate3');
-var migrate4 = require('./routes/migrate4');
 
 var app = express();
 
@@ -34,7 +33,6 @@ app.use('/settings', settings);
 app.use('/migrate', migrate);
 app.use('/migrate2', migrate2);
 app.use('/migrate3', migrate3);
-app.use('/migrate4', migrate4);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
