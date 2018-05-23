@@ -1,9 +1,4 @@
 extends layout
 
 block content
-    .item
-        if test[0].complete
-            p= test[0].msg
-        
-        if test[1].complete
-            p= test[1].msg
+    .item= db

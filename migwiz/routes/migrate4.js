@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var app = express();
 
 // ----------------------
 // MIGRATE step 4
@@ -12,10 +13,10 @@ var mongoose = require('mongoose');
 router.get('/', function(req, res, next) {
     
     var con = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "elinis",
-      database: "slash2"
+        host: req.app.locals.mysql_host,
+        user: req.app.locals.mysql_user,
+        password: req.app.locals.mysql_pw,
+        database: req.app.locals.mysql_db
     });
     con.connect();
     
@@ -71,7 +72,7 @@ router.get('/', function(req, res, next) {
                     posts.push(post);
                 }
             
-            mongoose.connect('mongoDB://localhost:27017/keystone', function(err){
+            mongoose.connect('req.app.locals.keystone', function(err){
                 if(err){
                     console.log(err);
                 }else{

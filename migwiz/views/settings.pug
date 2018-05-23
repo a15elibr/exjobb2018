@@ -1,0 +1,49 @@
+extends layout
+
+block content
+    if settingsSet
+        .flexbox-wrapper
+            .item
+                .headliner Perfect!
+            .item
+                .subliner All the necessary settings have been set.
+
+            .item
+                a(href='/migrate')
+                    button LETS MIGRATE!
+                    
+    else
+        .content-wrapper
+            .title
+                .headliner Migration settings
+                br
+            if settingsSet
+                p Perfect! All the necessary settings have been set.
+                p Let's start the migration process!
+
+                    ul
+                        li= mysql
+                        li= keystone
+            else
+                br
+                form(method='POST' action='')
+                    h3 MySQL settings
+                    .form-section
+                        label(for='mysql_host') Host:
+                        input#mysql(type='text', name='mysql_host')
+                        label(for='mysql_user') Username:
+                        input#mysql(type='text', name='mysql_user')
+                        label(for='mysql_pw') Password:
+                        input#mysql(type='text', name='mysql_pw')
+                        label(for='mysql_db') Database name:
+                        input#mysql(type='text', name='mysql_db')
+                    h3 MongoDB settings
+                    .form-section
+                        label(for='keystone_host') Host:
+                        input#mysql(type='text', name='keystone_host')
+                        label(for='keystone_port') Port:
+                        input#mysql(type='text', name='keystone_port')
+                        label(for='keystone_db') Database name:
+                        input#mysql(type='text', name='keystone_db')
+                    .form-section
+                        button(type='submit') DONE!

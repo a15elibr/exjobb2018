@@ -2,8 +2,15 @@
 /* 1 BASIC
 /* 2 FRONT PAGE
 /* 3 COMMON
+/* 4 ABOUT
+/* 5 FORM STYLING
 /* ------------------------------- */
 
+/* --
+ * PINK: cc80ec
+ * BLUE: 77d4e5
+ * --
+ * /
 
 /* ------------------------------- */ 
 /* 1
@@ -63,6 +70,17 @@ h2 {
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     font-size: 1em;
+}
+
+/* prim use form */ 
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 1em;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    color: #77d4e5;
+    letter-spacing: 1px;
 }
 
 nav {
@@ -187,7 +205,7 @@ button:hover {
 
 
 /* ---------------------------------- */ 
-/* ABOUT 
+/* 4 ABOUT 
 /* ---------------------------------- */
 
 
@@ -223,4 +241,36 @@ button:hover {
     display: inline;
     float: right;
     
+}
+
+
+/* ------------------------------- */ 
+/* --- [ 5 FORM STYLING ]
+/* ------------------------------- */
+
+.form-section {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 20px;
+}
+
+.sep {
+    width: 40%;
+    border: 1px solid #cc80ec;
+    height: 0px;
+    margin-bottom: 20px;
+}
+
+label {
+    color: #333;
+    font-style: italic;
+}
+
+input[type=text] {
+    width: 40%;
+    padding: 6px 6px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    display: block;
+    border: 1px solid #d0d0d0;
 }

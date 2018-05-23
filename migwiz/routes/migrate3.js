@@ -3,10 +3,11 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var mysql = require('mysql');
 var User = require('../models/user.js');
+var app = express();
 
 router.get('/', function(req, res, next){   
     
-    mongoose.connect('mongoDB://localhost:27017/keystone', function(){
+    mongoose.connect(req.app.locals.keystone, function(){
         console.log('connected');
     });
 
@@ -37,10 +38,10 @@ router.get('/', function(req, res, next){
     // Mysql 
     var connection6 = mysql.createConnection({
         multipleStatements: true,
-        host: 'localhost',
-        user: 'root',
-        password: 'elinis',
-        database: 'slash2',
+        host: req.app.locals.mysql_host,
+        user: req.app.locals.mysql_user,
+        password: req.app.locals.mysql_pw,
+        database: req.app.locals.mysql_db
     });
     connection6.connect();
     

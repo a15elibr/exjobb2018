@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var mysql = require('mysql');
 var User = require('../models/user.js');
+var app = express();
 
 // -----------------------
 // Migrate: step 2
@@ -11,7 +12,7 @@ var User = require('../models/user.js');
 
 router.get('/', function(req, res, next){   
     
-    mongoose.connect('mongoDB://localhost:27017/keystone', function(){
+    mongoose.connect('req.app.locals.keystone', function(){
         console.log('connected');
     });
 
@@ -36,11 +37,10 @@ router.get('/', function(req, res, next) {
    
     // Create table 
     var tblCon = mysql.createConnection({
-        // multipleStatements: true,
-        host: 'localhost',
-        user: 'root',
-        password: 'elinis',
-        database: 'slash2',
+        host: req.app.locals.mysql_host,
+        user: req.app.locals.mysql_user,
+        password: req.app.locals.mysql_pw,
+        database: req.app.locals.mysql_db
     });
     tblCon.connect();
     var SQL = "CREATE TABLE all_user_posts (post_id INT, post_author INT, post_title varchar(255), post_date DATETIME, post_modified DATETIME, post_type varchar(4), post_content nvarchar(4000), post_password varchar(255), post_status varchar(255), post_name varchar(255), post_parent INT, PRIMARY KEY(post_author, post_id));";
@@ -71,10 +71,10 @@ router.get('/', function(req, res, next) {
         
         // Mysql 
         var connection2 = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'elinis',
-            database: 'slash2',
+            host: req.app.locals.mysql_host,
+            user: req.app.locals.mysql_user,
+            password: req.app.locals.mysql_pw,
+            database: req.app.locals.mysql_db
         });
         
         connection2.connect();

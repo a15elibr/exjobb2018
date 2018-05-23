@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var app = express();
 
 // ----------------------
 // MIGRATE 
@@ -11,26 +12,25 @@ var mongoose = require('mongoose');
 router.get('/', function(req, res, next) {
     
     var con1 = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "elinis",
-      database: "slash2"
+        host: req.app.locals.mysql_host,
+        user: req.app.locals.mysql_user,
+        password: req.app.locals.mysql_pw,
+        database: req.app.locals.mysql_db
     });
     
     con1.connect();
     
     // variables
     var userList = [];
-    var query = "SELECT wp_users.ID, wp_users.user_email, wp_users.user_login, wp_users.user_registered, wp_blogs.path FROM wp_users INNER JOIN wp_blogs ON wp_users.ID = wp_blogs.blog_id;";
+    var query = "SELECT wp_users.ID, wp_users.user_email, wp_users.user_login, wp_users.user_registered, wp_blogs.path \
+                FROM wp_users INNER JOIN wp_blogs ON wp_users.ID = wp_blogs.blog_id;";
     
     // QUERY
     // ------------------
     con1.query(query, function(err, rows, fields) {
         if (err) {
             console.log(err);
-            
         } else {
-            
             for (var i = 0; i < rows.length; i++) {
 
                 // generate a random activation key 
@@ -63,7 +63,7 @@ router.get('/', function(req, res, next) {
             // INSERTION
             // connecting to mongodb
             // via mongoose
-            mongoose.connect('mongoDB://localhost:27017/keystone', function(err){
+            mongoose.connect(req.app.locals.keystone, function(err){
                 if(err){
                     console.log(err);
                 }else{
