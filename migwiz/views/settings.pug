@@ -2,30 +2,33 @@ extends layout
 
 block content
     if settingsSet
-        .flexbox-wrapper
-            .item
-                .headliner Perfect!
-            .item
-                .subliner All the necessary settings have been set.
+        if error
+            .flexbox-wrapper
+                .item
+                    .headliner Oh no!
+                .item
+                    .subliner MigWiz could not establish a database connection. Please check if your databases are fully functional, or if you entered invalid data. 
 
-            .item
-                a(href='/migrate')
-                    button LETS MIGRATE!
+                .item
+                    a(href='/')
+                        button GO BACK
+        else
+            .flexbox-wrapper
+                .item
+                    .headliner Perfect!
+                .item
+                    .subliner All the necessary settings have been set.
+
+                .item
+                    a(href='/migrate')
+                        button LETS MIGRATE!
                     
     else
         .content-wrapper
             .title
                 .headliner Migration settings
                 br
-            if settingsSet
-                p Perfect! All the necessary settings have been set.
-                p Let's start the migration process!
-
-                    ul
-                        li= mysql
-                        li= keystone
-            else
-                br
+            .text
                 form(method='POST' action='')
                     h3 MySQL settings
                     .form-section
