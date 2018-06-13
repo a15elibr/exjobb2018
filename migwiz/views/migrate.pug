@@ -26,18 +26,15 @@ block content
                         .features-icon 
                             img.image(src='http://localhost:3000/images/' + mig.third)
                         .features-text 
-                            p Establishing relationships between data
-                    .features-item
-                        .features-icon 
-                            img.image(src='http://localhost:3000/images/' + mig.fourth)
-                        .features-text 
-                            p Transfering all related posts
+                            p Transfering all user data
+
                             
             br
             br
             .text
                 if !mig.done
                     p Lets go to the next step!
+                    br
                     a(href='http://localhost:3000/' + mig.next) 
                         button Yeah, lets go!
                 else

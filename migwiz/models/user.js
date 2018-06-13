@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var app = express();
     
 // via mongoose
-mongoose.connect(req.app.locals.keystone);
+mongoose.connect("mongoDB://localhost:27017/keystone");
 var Schema = mongoose.Schema;
 
 // create a schema

@@ -75,7 +75,7 @@ router.get('/', function(req, res, next) {
                         wp_users.user_email AS email, \
                         wp_users.user_login AS username, \
                         wp_users.user_registered AS regDate, \
-                        wp_blogs.path AS subname, \
+                        wp_blogs.path AS path, \
                         metafirstname.meta_value AS firstname, \
                         metalastname.meta_value AS lastname, \
                         metadescription.meta_value AS description, \
@@ -89,7 +89,7 @@ router.get('/', function(req, res, next) {
     
     // QUERY
     // ------------------
-    con1.query(query, function(err, rows, fields) {
+    con.query(query, function(err, rows, fields) {
         if (err) {
             console.log(err);
             var mig = {
@@ -139,7 +139,7 @@ router.get('/', function(req, res, next) {
             // Render 
             var mig = {
                 'success': true,
-                'msg': 'Step one complete! Amazing. \nThe next two steps will do some work in background, while you get to enjoy some... entertainment.',
+                'msg': 'Step one complete! Amazing.',
                 'next': 'migrate2',
                 'first': 'check-green.png',
                 'second': 'check-grey.png',
